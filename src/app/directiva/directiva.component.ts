@@ -7,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DirectivaComponent  {
 
-  listaCurso: string[] = ['Typescript','javascript','Java','PHP'];
+  buttonText: string = "Mostrar";
+  courseList: string[] = ['Typescript','javascript','Java','PHP'];
 
-  habilitar: boolean = true;
+  enable: boolean = true;
 
+   changeText(){
+     this.buttonText = (this.enable)  ? "Show" : "Hide";
+     this.enable = (this.enable != true);
+   }
   constructor() { }
 
 
