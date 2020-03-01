@@ -1,0 +1,29 @@
+<div class="card border-primary mt-5 mb-3 mr-5 ml-5" >
+  <div class="card-header">Clients</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Clients list</h5>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>LastName</th>
+      <th>Email</th>
+      <th>Date</th>
+    </tr>
+
+    </thead>
+      <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{client.id}}</td>
+        <td>{{client.name}}</td>
+        <td>{{client.lastName}}</td>
+        <td>{{client.email}}</td>
+        <td>{{client.createAt}}</td>
+      </tr>
+      </tbody>
+
+  </table>
+  </div>
+</div>

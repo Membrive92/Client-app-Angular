@@ -14,7 +14,7 @@ export class DirectivaComponent  {
 
    changeText(){
      this.buttonText = (this.enable)  ? "Show" : "Hide";
-     this.enable = (this.enable != true);
+     this.enable = !this.enable
    }
   constructor() { }
 

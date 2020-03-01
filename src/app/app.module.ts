@@ -8,13 +8,15 @@ import {FooterComponent} from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DirectivaComponent } from './directiva/directiva.component';
 import {OverlayModule} from '@angular/cdk/overlay';
+import { ClientsComponent } from './clients/clients.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    DirectivaComponent
+    DirectivaComponent,
+    ClientsComponent
   ],
   imports: [
     BrowserModule,
