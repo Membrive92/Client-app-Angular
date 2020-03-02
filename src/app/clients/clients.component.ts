@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ClientService} from './client.service';
 import {Client} from './client';
+
 
 @Component({
   selector: 'app-clients',
@@ -8,17 +10,15 @@ import {Client} from './client';
 })
 export class ClientsComponent implements OnInit {
 
-   clients: Client[] = [
-     {id: 1, name: 'Jose', lastName:'Antonio', email:'test@mail.com',createAt:'2017-12-11'},
-     {id: 1, name: 'Paco', lastName:'', email:'test1@mail.com',createAt:'2018-12-11'},
-     {id: 1, name: 'Megan', lastName:'', email:'test2@mail.com',createAt:'2019-12-11'},
-     {id: 1, name: 'Jaime', lastName:'', email:'test3@mail.com',createAt:'2020-12-11'},
-     {id: 1, name: 'Paul', lastName:'', email:'test4@mail.com',createAt:'2016-12-11'}
-
-   ];
-  constructor() { }
+   clients: Client[];
+  constructor(private clientService: ClientService) { }
 
   ngOnInit(): void {
+    // subscribe method is for observable
+     this.clientService.getClients().subscribe(
+       // anonymous function abbreviation (it is correct if function only have one parameter)
+       clients => this.clients = clients
+     );
   }
 
 }
