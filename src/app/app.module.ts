@@ -9,6 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DirectivaComponent } from './directiva/directiva.component';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { ClientsComponent } from './clients/clients.component';
+import {RouterModule, Routes } from '@angular/router';
+
+
+const routes: Routes = [
+{path: '', redirectTo: '/clients', pathMatch: 'full'},
+{path: 'directives', component: DirectivaComponent},
+{path: 'clients', component: ClientsComponent}
+
+];
 
 @NgModule({
   declarations: [
@@ -22,7 +31,8 @@ import { ClientsComponent } from './clients/clients.component';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    OverlayModule
+    OverlayModule,
+    RouterModule.forRoot(routes)
 
   ],
   providers: [],
