@@ -10,6 +10,7 @@ import { DirectivaComponent } from './directiva/directiva.component';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { ClientsComponent } from './clients/clients.component';
 import {RouterModule, Routes } from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
 
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     OverlayModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
 
   ],
