@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
 })
 
 export class ClientService {
-  private urlEndPoint:string = 'http://localhost:8080/api/clients';
+  private urlEndPoint = 'http://localhost:8080/api/clients';
 
   constructor(private http: HttpClient) {}
 
@@ -24,6 +24,6 @@ export class ClientService {
     return this.http.get(this.urlEndPoint).pipe(
       map( response => response as Client[])
     );
-    //return of(CLIENTS);
+    // return of(CLIENTS);
   }
 }
