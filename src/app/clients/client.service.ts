@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {CLIENTS} from './clients.json';
 import {Client} from './client';
 import {Observable, of} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 
 
@@ -12,6 +12,7 @@ import {map} from 'rxjs/operators';
 
 export class ClientService {
   private urlEndPoint = 'http://localhost:8080/api/clients';
+  private httpHeaders = new HttpHeaders({'content-type': 'application/json'});
 
   constructor(private http: HttpClient) {}
 
@@ -25,5 +26,9 @@ export class ClientService {
       map( response => response as Client[])
     );
     // return of(CLIENTS);
+  }
+  create(client: Client): Observable<Client> {
+    return this.http.post<Client>(this.urlEndPoint, client, {headers: this.httpHeaders});
+
   }
 }
