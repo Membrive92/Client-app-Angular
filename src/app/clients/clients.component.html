@@ -5,7 +5,11 @@
   <div class="my-2 text-left">
     <button class="btn btn-rounded btn-primary" [routerLink] = "['/clients/form']">Create client</button>
   </div>
-  <table class="table table-bordered table-striped">
+
+  <div *ngIf="clients?.length == 0" class="alert  text-white alert-primary  empty-clients">
+   you don`t have any client created!
+  </div>
+  <table class="table table-bordered table-striped" *ngIf="clients?.length > 0">
     <thead>
     <tr>
       <th>Id</th>
@@ -14,6 +18,7 @@
       <th>Email</th>
       <th>Date</th>
       <th>Edit</th>
+      <th>Delete</th>
     </tr>
 
     </thead>
@@ -24,7 +29,8 @@
         <td>{{client.lastName}}</td>
         <td>{{client.email}}</td>
         <td>{{client.createAt}}</td>
-        <td><button type="button" name="button" [routerLink]="['/clients/form', client.id]" class="btn btn-primary">Edit</button></td>
+        <td><button type="button" name="edit" [routerLink]="['/clients/form', client.id]" class="btn btn-primary">Edit</button></td>
+        <td><button type="button" name="delete" (click)='delete(client)' class="btn btn-danger">Delete</button></td>
       </tr>
       </tbody>
 
