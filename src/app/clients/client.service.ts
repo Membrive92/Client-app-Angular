@@ -33,14 +33,18 @@ export class ClientService {
   create(client: Client): Observable<any> {
     return this.http.post<Client>(this.urlEndPoint, client, {headers: this.httpHeaders}).pipe(
       catchError(e => {
-        console.error(e.error.message);
-        swal.fire('Operation failed', e.error.message, 'error' );
-        return throwError(e);
+
+       if (e.status === 400) {
+         return throwError(e);
+       }
+       console.error(e.error.message);
+       swal.fire('Operation failed', e.error.message, 'error' );
+       return throwError(e);
       })
     );
   }
 
-  getClient(id): Observable<Client>{
+  getClient(id): Observable<Client> {
     return this.http.get<Client>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         this.router.navigate(['/clients']);
@@ -51,9 +55,13 @@ export class ClientService {
     );
   }
 
-  update(client: Client): Observable<any>{
+  update(client: Client): Observable<any> {
     return this.http.put<any>(`${this.urlEndPoint}/${client.id}`, client, {headers: this.httpHeaders} ).pipe(
       catchError(e => {
+
+        if (e.status === 400) {
+          return throwError(e);
+        }
         console.error(e.error.message);
         swal.fire('Operation failed', e.error.message, 'error' );
         return throwError(e);

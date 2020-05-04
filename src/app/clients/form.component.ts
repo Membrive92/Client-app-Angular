@@ -13,6 +13,7 @@ import swal from 'sweetalert2';
 export class FormComponent implements OnInit {
   public client: Client = new Client();
   public title = 'New Student';
+  public errors: string [];
 
 
   constructor(public clientService: ClientService, private router: Router, private activatedRoute: ActivatedRoute ) { }
@@ -33,13 +34,18 @@ export class FormComponent implements OnInit {
   this.clientService.create(this.client).subscribe(json => {
      this.router.navigate(['/clients']);
      swal.fire('New client ', `${json.client.name} added`, 'success');
-  }
+  },
+  err => {this.errors = err.error.errors as string[];
+          console.error('Error code from backend ' + err.error.errors);
+          console.error(err.error.errors); }
   );
   }
-  update(): void{
+  update(): void {
     this.clientService.update(this.client).subscribe( json => {
       this.router.navigate(['/clients']);
       swal.fire('Client update ', `${json.client.name} has been updated successfully`, 'success');
-    } );
+    }, err => {this.errors = err.error.errors as string[];
+               console.error('Error code from backend ' + err.error.errors);
+               console.error(err.error.errors); } );
   }
 }

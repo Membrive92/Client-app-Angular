@@ -1,3 +1,7 @@
+<ul class="alert alert-danger" *ngIf="errors?.length > 0">
+  <li *ngFor="let err of errors">{{ err }}</li>
+</ul>
+
 <div class="card bg-dark text-white">
    <div class="card-header"> {{title}} </div>
    <div class="card-body">
@@ -8,7 +12,7 @@
         <div class="form-group row">
           <label for="name" class="col-form-label col-sm-2"> name </label>
             <div class="col-sm-6">
-              <input type="text" class="form-control"  [(ngModel)]="client.name" name="name" required minlength="4" #validateName="ngModel">
+              <input type="text" class="form-control"  [(ngModel)]="client.name" name="name"  #validateName="ngModel">
               <div class="alert alert-danger" *ngIf="validateName.invalid && (validateName.dirty || validateName.touched)">
                 <div *ngIf="validateName.errors.required">
                     Name is required
@@ -24,7 +28,7 @@
         <div class="form-group row">
           <label for="last_name" class="col-form-label col-sm-2"> lastName </label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" [(ngModel)]="client.lastName" name="last_name" required minlength="4" #validateLastName="ngModel">
+              <input type="text" class="form-control" [(ngModel)]="client.lastName" name="last_name"  #validateLastName="ngModel">
               <div class="alert alert-danger" *ngIf="validateLastName.invalid && (validateLastName.dirty || validateLastName.touched)">
                 <div *ngIf="validateLastName.errors.required">
                     Lastname is required
@@ -40,7 +44,7 @@
         <div class="form-group row">
           <label for="email" class="col-form-label col-sm-2"> email </label>
             <div class="col-sm-6">
-              <input type="email" class="form-control" [(ngModel)]="client.email" name="email" required email minlength="4" #validateEmail="ngModel">
+              <input type="email" class="form-control" [(ngModel)]="client.email" name="email"  #validateEmail="ngModel">
               <div class="alert alert-danger" *ngIf="validateEmail.invalid && (validateEmail.dirty || validateEmail.touched)">
                 <div *ngIf="validateEmail.errors.required">
                     Email is required
