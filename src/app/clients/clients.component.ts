@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ClientService} from './client.service';
 import {Client} from './client';
-
 import Swal from 'sweetalert2';
+import { tap } from 'rxjs/operators';
 
 
 @Component({
@@ -17,7 +17,14 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit(): void {
     // subscribe method is for observable
-     this.clientService.getClients().subscribe(
+     this.clientService.getClients().pipe(
+      tap(clients => {
+        console.log('clientComponent: tap 3');
+        clients.forEach(client => {
+          console.log(client.name);
+        });
+      })
+     ).subscribe(
        // anonymous function abbreviation (it is correct if function only have one parameter)
        clients => this.clients = clients
      );
