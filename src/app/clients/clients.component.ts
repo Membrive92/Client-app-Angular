@@ -3,6 +3,7 @@ import {ClientService} from './client.service';
 import {Client} from './client';
 import Swal from 'sweetalert2';
 import { tap } from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -13,21 +14,25 @@ import { tap } from 'rxjs/operators';
 export class ClientsComponent implements OnInit {
 
    clients: Client[];
-  constructor(private clientService: ClientService) { }
+   paginator: any;
+  constructor(private clientService: ClientService, private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    // subscribe method is for observable
-     this.clientService.getClients().pipe(
-      tap(clients => {
+  ngOnInit()  {
+    this.activatedRoute.paramMap.subscribe( params => {
+      let page: number = +params.get('page');
+      if (!page) {
+        page = 0;
+      }
+      this.clientService.getClients(page).pipe(
+        tap(response => {
         console.log('clientComponent: tap 3');
-        clients.forEach(client => {
-          console.log(client.name);
-        });
-      })
-     ).subscribe(
-       // anonymous function abbreviation (it is correct if function only have one parameter)
-       clients => this.clients = clients
-     );
+        (response.content as Client[]).forEach(client => console.log(client.name));
+        })
+     ).subscribe(response => {this.clients = response.content as Client[];
+                              this.paginator = response;
+    });
+     }
+    );
   }
   delete(client: Client): void {
     const swalWithBootstrapButtons = Swal.mixin({

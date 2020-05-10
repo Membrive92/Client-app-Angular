@@ -33,7 +33,7 @@
         <td><button type="button" name="delete" (click)='delete(client)' class="btn btn-danger">Delete</button></td>
       </tr>
       </tbody>
-
   </table>
+  <paginator-nav *ngIf="paginator" [paginator] = "paginator"></paginator-nav>
   </div>
 </div>

@@ -15,6 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormComponent } from './clients/form.component';
 import {FormsModule} from '@angular/forms';
 import { ClientService } from './clients/client.service';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 registerLocaleData(localeEN, 'en');
 
@@ -22,6 +23,7 @@ const routes: Routes = [
 {path: '', redirectTo: '/clients', pathMatch: 'full'},
 {path: 'directives', component: DirectivaComponent},
 {path: 'clients', component: ClientsComponent},
+{path: 'clients/page/:page', component: ClientsComponent},
 {path: 'clients/form', component: FormComponent},
 {path: 'clients/form/:id', component: FormComponent}
 ];
@@ -33,7 +35,8 @@ const routes: Routes = [
     FooterComponent,
     DirectivaComponent,
     ClientsComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,

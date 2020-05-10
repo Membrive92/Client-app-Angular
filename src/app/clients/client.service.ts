@@ -11,10 +11,7 @@ import swal from 'sweetalert2';
 import {Router} from '@angular/router';
 
 
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable()
 export class ClientService {
   private urlEndPoint = 'http://localhost:8080/api/clients';
   private httpHeaders = new HttpHeaders({'content-type': 'application/json'});
@@ -26,42 +23,34 @@ export class ClientService {
 
   // I can follow state of object 'Client' if this state change, 'watchers' know it
 
-  getClients(): Observable<Client[]> {
-    return this.http.get(this.urlEndPoint).pipe(
-      tap(response => {
+  getClients(page: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
+      tap((response: any) => {
         console.log('tap1');
-        const clients = response as Client[];
-        clients.forEach( client => {
-          console.log(client.name);
-
-     });
+        (response.content as Client[]).forEach( client =>
+          console.log(client.name));
 
      }),
-      map( response => {
+      map( (response: any) => {
 
-        const clients = response as Client[];
-        return clients.map(client => {
+       (response.content as Client[]).map(client => {
           // I change the first character of name and last name to capital letter
             client.name = client.name[0].toUpperCase() + client.name.substr(1).toLowerCase();
             client.lastName = client.lastName[0].toUpperCase() + client.lastName.substr(1).toLowerCase();
             const datePipe = new DatePipe('en');
            // client.createAt = datePipe.transform(client.createAt, 'EEEE dd, MMMM yyyy');
            // client.createAt = formatDate(client.createAt, 'dd-MM-yyyy', 'en-US');
+
             return client;
           });
-
+       return response;
 
           }),
           tap(response => {
             console.log('tap2');
-            response.forEach( client => {
-              console.log(client.name);
-
-         });
-
+            (response.content as Client[]).forEach( client => console.log(client.name));
          }),
     );
-    // return of(CLIENTS);
   }
   create(client: Client): Observable<any> {
     return this.http.post<Client>(this.urlEndPoint, client, {headers: this.httpHeaders}).pipe(
