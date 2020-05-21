@@ -43,12 +43,12 @@ export class ClientsComponent implements OnInit {
       buttonsStyling: false
     });
     swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: `you want to delete client ${client.name} ${client.lastName}?`,
+      title: '¿Estas seguro?',
+      text: `¿Estas seguro que quieres eliminar ${client.name} ${client.lastName}?`,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
@@ -58,8 +58,8 @@ export class ClientsComponent implements OnInit {
         response => {
           this.clients = this.clients.filter(cli => cli  !== client);
           swalWithBootstrapButtons.fire(
-          'Client removed!',
-          `Client ${client.name} removed successfully.`,
+          'Cliente eliminado!',
+          `Cliente ${client.name} eliminado con exito.`,
           'success'
         ); }
         );
@@ -68,8 +68,8 @@ export class ClientsComponent implements OnInit {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your client has been not removed',
+          'Cancelado',
+          'El cliente no ha sido borrado',
           'error'
         );
       }

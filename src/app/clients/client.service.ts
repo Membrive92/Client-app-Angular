@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import {formatDate, DatePipe, registerLocaleData} from '@angular/common';
-import localeEN from '@angular/common/locales/en';
-import {CLIENTS} from './clients.json';
 import {Client} from './client';
 import {Observable, of, throwError, from} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -37,7 +35,7 @@ export class ClientService {
           // I change the first character of name and last name to capital letter
             client.name = client.name[0].toUpperCase() + client.name.substr(1).toLowerCase();
             client.lastName = client.lastName[0].toUpperCase() + client.lastName.substr(1).toLowerCase();
-            const datePipe = new DatePipe('en');
+            const datePipe = new DatePipe('es');
            // client.createAt = datePipe.transform(client.createAt, 'EEEE dd, MMMM yyyy');
            // client.createAt = formatDate(client.createAt, 'dd-MM-yyyy', 'en-US');
 

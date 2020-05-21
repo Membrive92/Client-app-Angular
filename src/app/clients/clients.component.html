@@ -1,30 +1,30 @@
 <div class="card border-primary mt-5 mb-3 mr-5 ml-5" >
-  <div class="card-header">Clients</div>
+  <div class="card-header">Clientes</div>
   <div class="card-body text-primary">
-    <h5 class="card-title">Clients list</h5>
+    <h5 class="card-title">Lista de clientes</h5>
   <div class="my-2 text-left">
-    <button class="btn btn-rounded btn-primary" [routerLink] = "['/clients/form']">Create client</button>
+    <button class="btn btn-rounded btn-primary" [routerLink] = "['/clients/form']">Crear Cliente</button>
   </div>
 
   <div *ngIf="clients?.length == 0" class="alert  text-white alert-primary  empty-clients">
-   you don`t have any client created!
+   No hay creado ningun cliente
   </div>
   <table class="table table-bordered table-striped" *ngIf="clients?.length > 0">
     <thead>
     <tr>
       <th>Id</th>
-      <th>Name</th>
-      <th>LastName</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
       <th>Email</th>
-      <th>Date</th>
-      <th>Edit</th>
-      <th>Delete</th>
+      <th>Fecha</th>
+      <th>Editar</th>
+      <th>Borrar</th>
     </tr>
 
     </thead>
       <tbody>
       <tr *ngFor="let client of clients">
-        <td>{{client.id}}</td>
+        <td><button type="button" [routerLink]="['/clients/view', client.id]" class="btn btn-success">{{client.id}}</button></td>
         <td>{{client.name}}</td>
         <td>{{client.lastName}}</td>
         <td>{{client.email}}</td>
