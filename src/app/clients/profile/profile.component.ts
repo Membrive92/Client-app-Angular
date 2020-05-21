@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Client} from '../client';
 import {ClientService} from '../client.service';
 import {ActivatedRoute} from '@angular/router';
+// tslint:disable-next-line:import-spacing
+import swal from  'sweetalert2';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -12,7 +14,9 @@ import {ActivatedRoute} from '@angular/router';
 export class ProfileComponent implements OnInit {
   client: Client;
   title = 'Perfil del cliente';
-  constructor(private clientService: ClientService, private activatedRoute: ActivatedRoute) { }
+  private imageSelected: File;
+  constructor(private clientService: ClientService,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -22,9 +26,17 @@ export class ProfileComponent implements OnInit {
             this.client = client;
         });
       }
-      }
-
-    );
+      });
   }
-
+  selectImage($event) {
+    this.imageSelected = $event.target.files[0];
+    console.log(this.imageSelected);
+  }
+  uploadImage() {
+    this.clientService.uploadImage(this.imageSelected, this.client.id)
+      .subscribe(client => {
+        this.client = client;
+        swal.fire('la foto se ha subido correctamente', 'la foto se ha subido con éxito: ' + `${this.imageSelected.name}`, 'success');
+      });
+  }
 }

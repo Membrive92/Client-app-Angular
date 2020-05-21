@@ -90,6 +90,28 @@ export class ClientService {
   }
 
   delete(id: number): Observable<Client> {
-    return this.http.delete<Client>(`${this.urlEndPoint}/${id}`,  {headers: this.httpHeaders} );
+    return this.http.delete<Client>(`${this.urlEndPoint}/${id}`,  {headers: this.httpHeaders} ).pipe(
+      catchError(e => {
+        this.router.navigate(['/clients']);
+        console.error(e.error.message);
+        swal.fire('Operation failed', e.error.message, 'error' );
+        return throwError(e);
+      })
+    );
+  }
+  uploadImage(file: File, id) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('id', id);
+
+    return this.http.post(`${this.urlEndPoint}/upload/`, formData).pipe(
+      map ((response: any) => response.client as Client),
+      catchError(e => {
+        this.router.navigate(['/clients']);
+        console.error(e.error.message);
+        swal.fire('Operation failed', e.error.message, 'error' );
+        return throwError(e);
+      })
+    );
   }
 }
