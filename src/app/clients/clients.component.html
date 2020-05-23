@@ -1,3 +1,5 @@
+<profile-client *ngIf="selectedClient" [client] = "selectedClient"></profile-client>
+
 <div class="card border-primary mt-5 mb-3 mr-5 ml-5" >
   <div class="card-header">Clientes</div>
   <div class="card-body text-primary">
@@ -24,7 +26,7 @@
     </thead>
       <tbody>
       <tr *ngFor="let client of clients">
-        <td><button type="button" [routerLink]="['/clients/view', client.id]" class="btn btn-success">{{client.id}}</button></td>
+        <td><button type="button" (click)="openModal(client)" class="btn btn-success">{{client.id}}</button></td>
         <td>{{client.name}}</td>
         <td>{{client.lastName}}</td>
         <td>{{client.email}}</td>

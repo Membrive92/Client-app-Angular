@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ClientService} from './client.service';
+import {ModalService} from './profile/modal.service';
 import {Client} from './client';
 import Swal from 'sweetalert2';
 import { tap } from 'rxjs/operators';
@@ -15,7 +16,10 @@ export class ClientsComponent implements OnInit {
 
    clients: Client[];
    paginator: any;
-  constructor(private clientService: ClientService, private activatedRoute: ActivatedRoute) { }
+  selectedClient: Client;
+  constructor(private clientService: ClientService,
+              private modalService: ModalService,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit()  {
     this.activatedRoute.paramMap.subscribe( params => {
@@ -76,4 +80,8 @@ export class ClientsComponent implements OnInit {
     });
   }
 
+  openModal(client: Client){
+  this.selectedClient = client;
+  this.modalService.openModal();
+  }
 }
